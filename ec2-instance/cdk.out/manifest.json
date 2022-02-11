@@ -1,0 +1,214 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "Ec2InstanceStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Ec2InstanceStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Ec2InstanceStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "Ec2InstanceStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4216042a841821e5ac0b4b9d1bd06c9bc2b0159e62ddf5f67f13a3ab34badc7d.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Ec2InstanceStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Ec2InstanceStack.assets"
+      ],
+      "metadata": {
+        "/Ec2InstanceStack/VPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCB9E5F0B4"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet1SubnetEE53BCBC"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet1RouteTable23B73BA2"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet1RouteTableAssociationFD2182F2"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet1DefaultRoute377544B7"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet2Subnet7959E1B2"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet2RouteTable01067F80"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet2RouteTableAssociation781F3620"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/asteriskSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCasteriskSubnet2DefaultRoute9650F4DB"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCIGWB7E252D3"
+          }
+        ],
+        "/Ec2InstanceStack/VPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCVPCGW99B986DC"
+          }
+        ],
+        "/Ec2InstanceStack/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SecurityGroupDD263621"
+          }
+        ],
+        "/Ec2InstanceStack/ec2Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ec2Role38AB65C0"
+          }
+        ],
+        "/Ec2InstanceStack/ec2Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ec2RoleDefaultPolicyC400AE24"
+          }
+        ],
+        "/Ec2InstanceStack/KeyPair/EC2-Key-Pair-cdk-ec2-instance-keypair/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KeyPairEC2KeyPaircdkec2instancekeypair6F34D4B0"
+          }
+        ],
+        "/Ec2InstanceStack/EC2-Key-Pair-Manager-Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EC2KeyPairManagerPolicyEBBC1576"
+          }
+        ],
+        "/Ec2InstanceStack/EC2-Key-Pair-Manager-Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EC2KeyPairManagerRoleB243C519"
+          }
+        ],
+        "/Ec2InstanceStack/EC2-Key-Name-Manager-Lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EC2KeyNameManagerLambdaBE629145"
+          }
+        ],
+        "/Ec2InstanceStack/Instance/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "InstanceInstanceProfileAB5AEF02"
+          }
+        ],
+        "/Ec2InstanceStack/Instance/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "InstanceC1063A87"
+          }
+        ],
+        "/Ec2InstanceStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-arm64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmarm64gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/Ec2InstanceStack/IP Address": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IPAddress"
+          }
+        ],
+        "/Ec2InstanceStack/Download Key Command": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DownloadKeyCommand"
+          }
+        ],
+        "/Ec2InstanceStack/ssh command": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "sshcommand"
+          }
+        ],
+        "/Ec2InstanceStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Ec2InstanceStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/Ec2InstanceStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Ec2InstanceStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Ec2InstanceStack"
+    }
+  }
+}
