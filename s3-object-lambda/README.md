@@ -2,7 +2,7 @@
 
 ## Overview
 [S3 Object Lambda](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/transforming-objects.html)
-
+<img src="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/images/ObjectLamdaDiagram.png">
 
 ## Example Output
 
