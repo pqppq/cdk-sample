@@ -78,7 +78,7 @@ export class Ec2InstanceStack extends Stack {
     });
 
     // create an asset that will be used as part of user data to run first load
-    // An asset represents a local file or directory, which is automatically uploaded to S3 and then can be referenced within a CDK application.
+    // An asset represents a local file or directory, which is automatically uploaded to S3 and then can be referenced within a CDK application.(ex. handler code for a Lambda)
     const asset = new Asset(this, "Asset", {
       path: path.join(__dirname, "../src/config.sh"),
     });
@@ -98,7 +98,7 @@ export class Ec2InstanceStack extends Stack {
 
     // create output for connectiong
     new cdk.CfnOutput(this, "IP Address", { value: instance.instancePublicIp });
-    // new cdk.CfnOutput(this, 'Key Name', {value: key.keyPariName})
+    new cdk.CfnOutput(this, "Key Name", { value: key.keyPairName });
     new cdk.CfnOutput(this, "Download Key Command", {
       value:
         "aws secretsmanager get-secret-value --secret-id ec2-ssh-key/cdk-keypair/private --query SecretString --output text > cdk-key.pem && chmod 400 cdk-key.pem",
