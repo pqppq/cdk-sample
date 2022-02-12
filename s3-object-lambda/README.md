@@ -1,8 +1,15 @@
-# S3 Object and Lambda
+# S3 Object Lambda
 
 ## Overview
 [S3 Object Lambda](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/transforming-objects.html)
+
 <img src="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/images/ObjectLamdaDiagram.png">
+
+- S3 Bucket
+- Lambda Function(transform data)
+- Access Point
+  - S3 Object Lambda Access Point(Client -> Lambda Function)
+  - Supporting Access Point(Lambda Function -> S3 Bucket)
 
 ## Example Output
 
