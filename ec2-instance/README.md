@@ -1,17 +1,13 @@
-# Welcome to your CDK TypeScript project!
+# CDK EC2 instance
 
-This is a blank project for TypeScript development with CDK.
+## Overview
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-- `npm run build` compile typescript to js
-- `npm run watch` watch for changes and compile
-- `npm run test` perform the jest unit tests
-- `cdk deploy` deploy this stack to your default AWS account/region
-- `cdk diff` compare deployed stack with current state
-- `cdk synth` emits the synthesized CloudFormation template
+. VPC
+. Security Group
+. IAM Role
+. Key pair
+. EC2 instance
+. Asset(User data)
 
 ## Reference
 
