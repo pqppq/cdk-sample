@@ -1,13 +1,13 @@
 # CDK EC2 instance
 
 ## Overview
-
-. VPC
-. Security Group
-. IAM Role
-. Key pair
-. EC2 instance
-. Asset(User data)
+-
+- VPC
+- Security Group
+- IAM Role
+- Key pair
+- EC2 instance
+- Asset(User data)
 
 ## Reference
 
