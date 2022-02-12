@@ -5,8 +5,8 @@
 - VPC
 - Security Group
 - IAM Role
-- Key pair
-- EC2 instance
+- Key Pair
+- EC2 Instance
 - Asset(User data)
 
 ## Reference
