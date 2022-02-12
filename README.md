@@ -26,7 +26,7 @@
 - [ ] my-widget-service
 - [ ] neptune-with-vpc
 - [ ] resource-overrides
-- [x] s3-object-lambda
+- [x] [s3-object-lambda](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/s3-object-lambda
 - [ ] static-site
 - [ ] stepfunctions-job-poller
 - [ ] waf
