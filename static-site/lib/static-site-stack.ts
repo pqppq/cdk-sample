@@ -9,6 +9,7 @@ import {
   aws_route53 as route53,
   aws_route53_targets as targets,
   aws_cloudfront as cloudfront,
+  aws_cloudfront_origins as origins,
   aws_cloudwatch as cloudwatch,
 } from "aws-cdk-lib";
 
@@ -24,7 +25,6 @@ export interface StaticSiteProps {
  * Route53 alias record, and ACM certificate.
  *
  */
-
 export class StaticSiteStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
@@ -41,18 +41,11 @@ class StaticSite extends Construct {
     super(scope, id);
 
     const siteDomain = `${props.subdomain}.${props.domain}`;
-    const zone = new route53.PublicHostedZone(this, "HostedZone", {
-      zoneName: props.domain,
+    // DNS host zone
+    const zone = route53.HostedZone.fromLookup(this, "Zone", {
+      domainName: props.domain,
     });
-
-    // new acm.Certificate(this, "Certificate", {
-    //   domainName: siteDomain,
-    //   validation: acm.CertificateValidation.fromDns(zone),
-    // });
-
-    // const zone = route53.HostedZone.fromLookup(scope, "Zone", {
-    //   domainName: props.domain,
-    // });
+    // cloud front origin access identity
     const cloudfrontOAI = new cloudfront.OriginAccessIdentity(
       this,
       "cloudfront-OAI",
@@ -61,15 +54,13 @@ class StaticSite extends Construct {
       }
     );
 
-    new CfnOutput(this, "Site", { value: `https://${siteDomain}` });
-
     // contents s3 bucket
     const siteBucket = new s3.Bucket(this, "StaticSiteBucket", {
-      bucketName: "contents-bucket",
+      bucketName: siteDomain,
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "error.html",
-      publicReadAccess: false,
-      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      // publicReadAccess: true,
+      // blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
 
       /**
        * The default removal policy is RETAIN, which means that cdk destroy will not attempt to delete
@@ -89,73 +80,52 @@ class StaticSite extends Construct {
     siteBucket.addToResourcePolicy(
       new iam.PolicyStatement({
         actions: ["s3:GetObject"],
-        resources: [siteBucket.arnForObjects("*")],
+        effect: iam.Effect.ALLOW,
         principals: [
-          new iam.CanonicalUserPrincipal(
-            cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId
-          ),
+					cloudfrontOAI.grantPrincipal
+          // new iam.CanonicalUserPrincipal(
+          //   cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId
+          // ),
         ],
+        resources: [`${siteBucket.bucketArn}/*`],
       })
     );
-    new CfnOutput(this, "Bucket", { value: siteBucket.bucketName });
-    new CfnOutput(this, "BucketArn", { value: siteBucket.bucketArn });
 
-    // TLS certificate
     const certificate = new acm.DnsValidatedCertificate(
       this,
       "SiteCertificate",
       {
-        domainName: siteDomain,
         hostedZone: zone,
-        region: cdk.Aws.REGION,
+        domainName: siteDomain,
+
+        /**
+         * This is needed especially for certificates used for CloudFront distributions,
+         * which require the region to be us-east-1.
+         */
+        region: "us-east-1",
       }
     );
-
-
     certificate.metricDaysToExpiry = () =>
       new cloudwatch.Metric({
-        namespace: "TLS Viewer Certificate Validity",
-        metricName: "TLS Viewer Certificate Expired",
-        region: cdk.Aws.REGION,
+        namespace: "Certificate Validity",
+        metricName: "Certificate Expired",
         account: cdk.Aws.ACCOUNT_ID,
+        // period: ___
       });
 
-    // specifies viewers to use HTTPS & TLS v1.2 to request your objects
-    const viewerCertificate = cloudfront.ViewerCertificate.fromAcmCertificate(
-      certificate,
-      {
-        sslMethod: cloudfront.SSLMethod.SNI,
-        securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
-        aliases: [siteDomain],
-      }
-    );
-
     // cloudformation distribution
-    const distribution = new cloudfront.CloudFrontWebDistribution(
-      this,
-      "SiteDistribution",
-      {
-        viewerCertificate: viewerCertificate,
-        originConfigs: [
-          {
-            s3OriginSource: {
-              s3BucketSource: siteBucket,
-              originAccessIdentity: cloudfrontOAI,
-            },
-            behaviors: [
-              {
-                isDefaultBehavior: true,
-                compress: true,
-                allowedMethods:
-                  cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
-              },
-            ],
-          },
-        ],
-      }
-    );
-    new CfnOutput(this, "DistributionId", {
-      value: distribution.distributionId,
+    const distribution = new cloudfront.Distribution(this, "SiteDistribution", {
+      defaultBehavior: {
+				origin: new origins.S3Origin(siteBucket, {
+					originAccessIdentity: cloudfrontOAI
+				}),
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+        compress: true,
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      domainNames: [siteDomain],
+      certificate: certificate,
+			
     });
 
     // route53 alias record for the cloudfront distribution
@@ -174,5 +144,11 @@ class StaticSite extends Construct {
       distribution: distribution,
       distributionPaths: ["/*"],
     });
+
+    new CfnOutput(this, "BucketArn", { value: siteBucket.bucketArn });
+    new CfnOutput(this, "DistributionId", {
+      value: distribution.distributionId,
+    });
+    new CfnOutput(this, "Site URL", { value: `https://${siteDomain}` });
   }
 }

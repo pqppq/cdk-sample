@@ -1,8 +1,14 @@
-# Static site
+# Welcome to your CDK TypeScript project
 
-## Overview
+This is a blank project for TypeScript development with CDK.
 
-## Reference
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
--[ aws-samples ](https://github.com/aws-samples/aws-cdk-examples)/[ static-site ](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/static-site)
+## Useful commands
 
+* `npm run build`   compile typescript to js
+* `npm run watch`   watch for changes and compile
+* `npm run test`    perform the jest unit tests
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk synth`       emits the synthesized CloudFormation template

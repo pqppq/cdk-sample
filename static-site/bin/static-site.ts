@@ -18,9 +18,7 @@ import { StaticSiteStack } from "../lib/static-site-stack";
 const app = new cdk.App();
 new StaticSiteStack(app, "StaticSiteStack", {
   env: {
-    // account: '935838525253',
-    //region: "us-east-1",
-		account: process.env.CDK_DEFAULT_ACCOUNT,
-		region:  process.env.CDK_DEFAULT_REGION
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: "us-east-1",
   },
 });
