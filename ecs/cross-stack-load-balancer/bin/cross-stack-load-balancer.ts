@@ -38,7 +38,7 @@ const infra = new SharedInfraStructure(
 
 const splitAtListenerLoadBalancerStack = new SplitAtListener_LoadBalancerStack(
   app,
-  "SplicaAtListenerLoadBalancerStack",
+  "SplitAtListenerLoadBalancerStack",
   {
     vpc: infra.vpc,
   }
@@ -51,7 +51,7 @@ new SplitAtListener_ServiceStack(app, "SplitAtListenerServiceStack", {
 
 const splitAtTargetGroupLoadBalancerStack = new SplitAtTargetGroup_LoadBalancerStack(
   app,
-  "SplicaAtTargetGroupLoadBalancerStack",
+  "SplitAtTargetGroupLoadBalancerStack",
   {
     vpc: infra.vpc,
   }
