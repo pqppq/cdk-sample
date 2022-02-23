@@ -11,4 +11,4 @@
 
 ## Reference
 
-[aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/ec2-instance)
+-[ aws-samples ](https://github.com/aws-samples/aws-cdk-examples)/[ ec2-instance ](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/ec2-instance)
