@@ -2,9 +2,9 @@
 
 ## Overview
 - [x] cluster                                     
-- [ ] cross-stack-load-balancer                   
-- [ ] ecs-network-load-balanced-service           
-- [ ] ecs-service-with-advanced-alb-config        
+- [x] cross-stack-load-balancer                   
+- [x] ecs-network-load-balanced-service           
+- [x] ecs-service-with-advanced-alb-config        
 - [ ] ecs-service-with-logging                    
 - [ ] ecs-service-with-task-networking            
 - [ ] ecs-service-with-task-placement             
