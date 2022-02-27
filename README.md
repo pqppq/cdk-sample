@@ -1,6 +1,8 @@
 # cdk samples
 
-## [aws-samples](https://github.com/aws-samples)/[aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples)
+## Overview
+[aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples)
+
 - [ ] amplify-console-app
 - [ ] api-cors-lambda-crud-dynamodb
 - [ ] api-websocket-lambda-dynamodb
@@ -12,7 +14,7 @@
 - [ ] custom-logical-names
 - [ ] custom-resource
 - [ ] custom-resource-provider
-- [x] [ec2-instance](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/ec2-instance)
+- [x] ec2-instance
 - [ ] ecs
 - [ ] eks
 - [ ] elasticbeanstalk
@@ -26,7 +28,7 @@
 - [ ] my-widget-service
 - [ ] neptune-with-vpc
 - [ ] resource-overrides
-- [x] [s3-object-lambda](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/s3-object-lambda)
+- [x] s3-object-lambda
 - [ ] static-site
 - [ ] stepfunctions-job-poller
 - [ ] waf
